@@ -16,13 +16,13 @@ main {
 input,button {
     padding-inline: 8px;;
     padding-block: 4px;
-    font-size: 18px;
+    font-size: 100px;
 }
 button {
     background: #c6093b;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px;
 }
 .row,.col {
     gap: 8px;
