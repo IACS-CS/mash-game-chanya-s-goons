@@ -34,6 +34,12 @@ const App = () => {
   const renderScramblePage = () => {  
     return <div> 
       <button>O</button>
+      <button>N</button>
+      <button>N</button>
+      <button>W</button>
+      <button>M</button>
+      <button>A</button>
+      <button>S</button>
        </div>
   }
 
