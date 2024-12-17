@@ -32,7 +32,9 @@ const App = () => {
   }
 
   const renderScramblePage = () => {  
-    return <div>🟢⚡✅ We will scramble words now </div>
+    return <div> 
+      <button>O</button>
+       </div>
   }
 
   return (
