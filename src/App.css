@@ -24,6 +24,7 @@ button {
     color: white;
     border: none;
     border-radius: 30px;
+    padding: 3px;
 }
 .row,.col {
     gap: 8px;
