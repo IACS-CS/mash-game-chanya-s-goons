@@ -2,80 +2,78 @@ import { useState } from "react";
 import "./App.css";
 
 // Fisher-Yates Shuffle Function
-// Source: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-// Note: This function COPIES the original array before shuffling it.
 const shuffleArray = (array) => {
   const shuffled = [...array]; // Create a copy to avoid modifying the original
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    const j = Math.floor(Math.random() * (i + 1)); // Generate random index
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap elements
   }
-  return shuffled;
+  return shuffled; // Return shuffled array
 };
 
 // Helper to shuffle a string
 const shuffleString = (str) => {
   const letters = shuffleArray(Array.from(str)); // Convert string to array and shuffle
-  return letters.join(""); // Join back into a string
+  return letters.join(""); // Join shuffled letters into a string
 };
-
+// This is from ChatGPT
 const App = () => {
+  // State variables
+  const [started, setStarted] = useState(false); // Track if the game has started
+  const [answerWord, setAnswerWord] = useState("snowman"); // Set the answer word (e.g., snowman)
+  const [shuffledWord, setShuffledWord] = useState(""); // Store shuffled word
 
-  // Note: this function runs once when the App starts up
-  // and then again any piece of state 
-  // changes!
-  
-  // Example state and setter
-  const [started,setStarted] = useState(false);
+  // Log statement to track re-renders and state changes
+  console.log('Rendering app!', 'toggle is', started);
 
-  // create state for an answer word (e.g. snowman)
-  // create state for shuffled word (e.g. answer word shuffled)
-  // create state for user input
-
-  // The console.log statement below will show you each time
-  // the App renders.
-  console.log('Rendering app!','toggle is',started);
-
-
-  // actions  
+  // Start game function: Sets up the shuffled word
   const startGame = () => {
-    // Set up scrambled words!
-    setStarted(!started)
-  }
+    setStarted(true); // Set game state to started
+    const shuffled = shuffleString(answerWord); // Shuffle the answer word
+    setShuffledWord(shuffled); // Set shuffled word in state
+  };
 
-
-  // render parts of our output...
+  // Function to render the start page or scramble page based on the "started" state
   const renderStartPage = () => {
     if (started) {
-      return renderScramblePage();
+      return renderScramblePage(); // Show scramble page if game has started
     } else {
-      return <div><button onClick={startGame}>START</button></div>
+      return (
+        <div>
+          {/* Button to start the game */}
+          <button onClick={startGame}>START</button>
+        </div>
+      );
     }
-  }
+  };
 
-  const renderScramblePage = () => {  
-    return <div>
-      // change to use shuffled word from state 
-      <button>O</button>
-      <button>N</button>
-      <button>N</button>
-      <button>W</button>
-      <button>M</button>
-      <button>A</button>
-      <button>S</button>
-       </div>
-  }
+  // Function to render the scramble page
+  const renderScramblePage = () => {
+    // Split shuffled word into an array of letters and map them into buttons
+    const letters = shuffledWord.split(""); // Convert shuffled word into an array of letters
 
-  return (
-  <main>
-    <h1>CHRISTMAS WORD SCRAMBLE</h1>
-    <div className="col">
+    return (
       <div>
-        {renderStartPage()}
+        {/* Render each letter as a button */}
+        {letters.map((letter, index) => (
+          <button key={index}>{letter}</button>
+        ))}
       </div>
-    </div>    
-  </main>
+    );
+  };
+
+  // Return the main part of the app
+  return (
+    <main>
+      <h1>CHRISTMAS WORD SCRAMBLE</h1>
+      <div className="col">
+        <div>
+          {renderStartPage()} {/* Conditionally render the start or scramble page */}
+        </div>
+      </div>
+    </main>
   );
 };
 
 export default App;
+
