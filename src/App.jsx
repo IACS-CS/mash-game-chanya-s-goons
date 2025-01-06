@@ -38,7 +38,17 @@ const App = () => {
   const addLetter = (ltr) => {
     setGuessWord (guessWord+ltr)
     // maybe check if it's right???
-    if (guessWord+ltr == answerWord){window.alert("Correct! Yayy!")}
+    const updatedGuessWord = guessWord + ltr;
+
+        // Only check if the word is complete
+        if (updatedGuessWord.length === answerWord.length) {
+          if (updatedGuessWord === answerWord) {
+              window.alert("Correct! Yayy!");
+          } else {
+              window.alert("Not right");
+              setGuessWord("")
+          }
+      }
          
 }
 
