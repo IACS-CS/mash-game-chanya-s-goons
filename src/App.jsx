@@ -22,6 +22,8 @@ const App = () => {
   const [started, setStarted] = useState(false); // Track if the game has started
   const [answerWord, setAnswerWord] = useState("snowman"); // Set the answer word (e.g., snowman)
   const [shuffledWord, setShuffledWord] = useState(""); // Store shuffled word
+  const [guessWord, setGuessWord] = useState(""); // Store shuffled word
+
 
   // Log statement to track re-renders and state changes
   console.log('Rendering app!', 'toggle is', started);
@@ -32,6 +34,14 @@ const App = () => {
     const shuffled = shuffleString(answerWord); // Shuffle the answer word
     setShuffledWord(shuffled); // Set shuffled word in state
   };
+
+  const addLetter = (ltr) => {
+    setGuessWord (guessWord+ltr)
+    // maybe check if it's right???
+    if (guessWord+ltr == answerWord){window.alert("Correct! Yayy!")}
+         
+}
+
 
   // Function to render the start page or scramble page based on the "started" state
   const renderStartPage = () => {
@@ -53,12 +63,17 @@ const App = () => {
     const letters = shuffledWord.split(""); // Convert shuffled word into an array of letters
 
     return (
-      <div>
-        {/* Render each letter as a button */}
-        {letters.map((letter, index) => (
-          <button key={index}>{letter}</button>
-        ))}
-      </div>
+      <>
+        <div>
+          {/* Render each letter as a button */}
+          {letters.map((letter, index) => (
+            <button key={index}
+            onClick={()=>{addLetter(letter)}}
+            >{letter}</button>
+          ))}
+        </div>
+        <div>{guessWord}</div>
+      </>
     );
   };
 
